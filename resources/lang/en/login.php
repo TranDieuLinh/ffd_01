@@ -9,7 +9,7 @@ return [
     'register' => 'Register',
     'name' => 'Name',
     'pass-confirm' => 'Confirm Password',
-    'reset-pass' => '>Reset Password',
+    'reset-pass' => 'Reset Password',
     'send-pass-link' => 'Send Password Reset Link',
     'actived' => 'user are already actived!',
     'welcome' => 'Welcome',

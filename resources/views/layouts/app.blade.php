@@ -11,8 +11,10 @@
     <title>{{ config('app.name', 'Laravel') }}</title>
 
     <!-- Styles -->
+    <link rel="stylesheet" href ="{{ asset('bower_components/bootstrap/dist/css/bootstrap.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('bower_components/font-awesome/css/font-awesome.min.css') }}">
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
-
+    @yield('css')
     <!-- Scripts -->
     <script>
         window.Laravel = {!! json_encode([
@@ -36,7 +38,7 @@
 
                     <!-- Branding Image -->
                     <a class="navbar-brand" href="{{ url('/') }}">
-                        {{ config('app.name', 'Laravel') }}
+                        {{ config('settings.app.name') }}
                     </a>
                 </div>
 
@@ -86,6 +88,8 @@
     </div>
 
     <!-- Scripts -->
+    <script type="text/javascript" src="{{ asset('bower_components/jquery/dist/jquery.js') }}"></script>
     <script src="{{ asset('js/app.js') }}"></script>
+    @yield('script')
 </body>
 </html>

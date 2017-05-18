@@ -1,0 +1,23 @@
+{
+  "name": "ffd_01",
+  "description": "",
+  "main": "",
+  "authors": [
+    "TranDieuLinh <linhttd.bk@gmail.com>"
+  ],
+  "license": "MIT",
+  "keywords": [
+    "123456"
+  ],
+  "homepage": "https://github.com/TranDieuLinh/ffd_01",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "jquery": "^3.2.1"
+  }
+}

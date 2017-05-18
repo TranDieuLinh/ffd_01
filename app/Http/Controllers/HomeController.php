@@ -2,18 +2,29 @@
 
 namespace App\Http\Controllers;
 
+use App\Repositories\Contracts\CategoryRepositoryInterface;
+use App\Repositories\Contracts\FoodRepositoryInterface;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
 {
+    protected $foodRepository;
+    protected $categoryRepository;
+
     /**
      * Create a new controller instance.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct(
+        FoodRepositoryInterface $foodRepository,
+        CategoryRepositoryInterface $categoryRepository
+    )
     {
-        $this->middleware('auth');
+        parent::__construct();
+        $this->foodRepository = $foodRepository;
+        $this->categoryRepository = $categoryRepository;
+
     }
 
     /**
@@ -23,6 +34,9 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+        $count = 0;
+        $latestFoods = $this->foodRepository->findLatest();
+        $title = trans('home.latest-foods');
+        return view('home', compact('latestFoods', 'title', 'count'));
     }
 }

@@ -82,7 +82,15 @@ class FoodRepository extends BaseRepository implements FoodRepositoryInterface
      */
     public function findLatest()
     {
-        return $this->model->orderBy('date', 'desc')->limit(config('settings.food.limit'))->get();
+        return $this->model->orderBy('date', 'desc')->get();
+    }
+
+    /**
+     * @return all foods have advertise
+     */
+    public function findAdvertise()
+    {
+        return $this->model->where('advertise', '<>', NULL)->get();
     }
 
     /**
@@ -103,5 +111,10 @@ class FoodRepository extends BaseRepository implements FoodRepositoryInterface
         ];
 
         return $this->model->find($input['review_id'])->comments()->create($data);
+    }
+
+    public function searchFood($name)
+    {
+        return $this->model->where('name', 'like', '%' . $name . '%');
     }
 }

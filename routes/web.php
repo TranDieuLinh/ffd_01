@@ -11,12 +11,20 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', 'HomeController@index');
 
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
-
 Route::get('/user/activation/{token}', 'Auth\RegisterController@userActivation');
+
+Route::get('search/food', [
+    'as' => 'search.food',
+    'uses' => 'HomeController@searchFood'
+]);
+
+Route::group(['middleware' => 'auth'], function () {
+    Route::get('home', [
+        'as' => 'home',
+        'uses' => 'ProfileController@index'
+    ]);
+});

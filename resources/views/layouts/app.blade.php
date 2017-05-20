@@ -38,7 +38,11 @@
 
                     <!-- Branding Image -->
                     <a class="navbar-brand" href="{{ url('/') }}">
-                        {{ config('settings.app.name') }}
+                        <div class="parallax-div">
+                            <h1 class="parallax-text">
+                                {{ config('settings.app.name') }}
+                            </h1>
+                        </div>
                     </a>
                 </div>
 

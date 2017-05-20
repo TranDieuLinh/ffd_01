@@ -1,95 +1,132 @@
-<!doctype html>
-<html lang="{{ config('app.locale') }}">
-    <head>
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
+@extends('layouts.app')
 
-        <title>Laravel</title>
+@section('css')
+    {{ Html::style('/css/home.css') }}
+@endsection
+@section('content')
+    <div class="row">
+        <div class="col-md-10 col-md-offset-1">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
+                        <!-- Indicators -->
+                        <ol class="carousel-indicators">
+                            @foreach ($advertiseFoods as $food)
+                                @if($count == config('settings.app.default-slide-show'))
+                                    <li data-target="#carousel-example-generic" data-slide-to={{ $count }}
+                                            class="active"></li>
+                                    @php($count++)
+                                @else
+                                    <li data-target="#carousel-example-generic" data-slide-to={{ $count }}></li>
+                                    @php($count++)
+                                @endif
+                            @endforeach
+                        </ol>
 
-        <!-- Fonts -->
-        <link href="https://fonts.googleapis.com/css?family=Raleway:100,600" rel="stylesheet" type="text/css">
+                        <!-- Wrapper for slides -->
+                        @php($count = config('settings.app.default-slide-show'))
+                        <div class="carousel-inner" role="listbox">
+                            @foreach ($advertiseFoods as $food)
+                                @if($count == config('settings.app.default-slide-show'))
+                                    <div class="item active">
+                                        <div class="text-center">
+                                            <a href="">
+                                                <img class="slide" name="image" src="{{ $food->advertise }}" title="{{ $food->name }}"/>
+                                            </a>
+                                        </div>
+                                    </div>
+                                    @php($count++)
+                                @else
+                                    <div class="item">
+                                        <div class="text-center">
+                                            <a href="">
+                                                <img class="slide" name="image" src="{{ $food->advertise }}" title="{{ $food->name }}"/>
+                                            </a>
+                                        </div>
+                                    </div>
+                                    @php($count++)
+                                @endif
+                            @endforeach
+                        </div>
 
-        <!-- Styles -->
-        <style>
-            html, body {
-                background-color: #fff;
-                color: #636b6f;
-                font-family: 'Raleway', sans-serif;
-                font-weight: 100;
-                height: 100vh;
-                margin: 0;
-            }
-
-            .full-height {
-                height: 100vh;
-            }
-
-            .flex-center {
-                align-items: center;
-                display: flex;
-                justify-content: center;
-            }
-
-            .position-ref {
-                position: relative;
-            }
-
-            .top-right {
-                position: absolute;
-                right: 10px;
-                top: 18px;
-            }
-
-            .content {
-                text-align: center;
-            }
-
-            .title {
-                font-size: 84px;
-            }
-
-            .links > a {
-                color: #636b6f;
-                padding: 0 25px;
-                font-size: 12px;
-                font-weight: 600;
-                letter-spacing: .1rem;
-                text-decoration: none;
-                text-transform: uppercase;
-            }
-
-            .m-b-md {
-                margin-bottom: 30px;
-            }
-        </style>
-    </head>
-    <body>
-        <div class="flex-center position-ref full-height">
-            @if (Route::has('login'))
-                <div class="top-right links">
-                    @if (Auth::check())
-                        <a href="{{ url('/home') }}">Home</a>
-                    @else
-                        <a href="{{ url('/login') }}">Login</a>
-                        <a href="{{ url('/register') }}">Register</a>
-                    @endif
-                </div>
-            @endif
-
-            <div class="content">
-                <div class="title m-b-md">
-                    Laravel
+                        <!-- Controls -->
+                        <a class="left carousel-control" href="#carousel-example-generic" role="button"
+                           data-slide="prev">
+                            <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+                            <span class="sr-only"></span>
+                        </a>
+                        <a class="right carousel-control" href="#carousel-example-generic" role="button"
+                           data-slide="next">
+                            <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+                            <span class="sr-only"></span>
+                        </a>
+                    </div>
+                    <br/>
                 </div>
 
-                <div class="links">
-                    <a href="https://laravel.com/docs">Documentation</a>
-                    <a href="https://laracasts.com">Laracasts</a>
-                    <a href="https://laravel-news.com">News</a>
-                    <a href="https://forge.laravel.com">Forge</a>
-                    <a href="https://github.com/laravel/laravel">GitHub</a>
+                <div class="panel-body">
+                    <div class="container row content-custom">
+                        <div class="col-md-1 col-xs-1 col-sm-1 back-gr">
+
+                        </div>
+                        <div class="col-md-10 col-xs-10 col-sm-10 back-gr">
+                            <div class="row">
+                                <div class="col-md-8 col-xs-12 col-sm-8 margin-top">
+                                    <div class="row">
+                                        <div class="col-md-6 col-xs-6 col-sm-6 dropdown filter-custom">
+                                            <button class="btn btn-default dropdown-toggle" type="button" id="menu1"
+                                                    data-toggle="dropdown">{{ trans('home.all') }}
+                                                <span class="caret"></span></button>
+                                            <ul class="dropdown-menu" role="menu" aria-labelledby="menu1">
+                                                @foreach ($categories as $category)
+                                                    <li role="presentation">
+                                                        <a role="menuitem" tabindex="-1" href="#">{{ $category->name }}</a>
+                                                    </li>
+                                                @endforeach
+                                            </ul>
+                                        </div>
+                                        <div class="col-md-6 col-xs-6 col-sm-6 dropdown filter-custom">
+                                            <button class="btn btn-default dropdown-toggle" type="button" id="menu1"
+                                                    data-toggle="dropdown">{{ trans('home.filter') }}
+                                                <span class="caret"></span></button>
+                                            <ul class="dropdown-menu" role="menu" aria-labelledby="menu1">
+                                                <li role="presentation">
+                                                    <a role="menuitem" tabindex="-1" href="#">{{ trans('home.filter-price') }}</a>
+                                                </li>
+                                                <li role="presentation">
+                                                    <a role="menuitem" tabindex="-1" href="#">{{ trans('home.filter-date') }}</a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                                {{--search box--}}
+                                <div class="col-md-4 col-xs-12 col-sm-4 margin-top">
+                                    <div class="input-group">
+                                        <input type="search" class="form-control" name="search" placeholder="{{ trans('home.search') }}" id="searchFood">
+                                        <div class="input-group-btn">
+                                            <button class="btn btn-default">
+                                                <i class="glyphicon glyphicon-search"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div id="book_content">
+                                @foreach ($foods as $food)
+                                    @include ('layouts.book-item')
+                                @endforeach
+                            </div>
+                        </div>
+                        <div class="col-md-1 col-xs-1 col-sm-1 back-gr">
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
-    </body>
-</html>
+    </div>
+@endsection
+
+@section('script')
+    {{ Html::script('/js/home.js') }}
+@endsection

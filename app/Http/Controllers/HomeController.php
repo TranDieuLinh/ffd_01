@@ -21,7 +21,6 @@ class HomeController extends Controller
         CategoryRepositoryInterface $categoryRepository
     )
     {
-        parent::__construct();
         $this->foodRepository = $foodRepository;
         $this->categoryRepository = $categoryRepository;
 
@@ -35,8 +34,18 @@ class HomeController extends Controller
     public function index()
     {
         $count = 0;
-        $latestFoods = $this->foodRepository->findLatest();
+        $advertiseFoods = $this->foodRepository->findAdvertise();
+        $foods = $this->foodRepository->findLatest();
+        $categories = $this->categoryRepository->all();
         $title = trans('home.latest-foods');
-        return view('home', compact('latestFoods', 'title', 'count'));
+
+        return view('welcome', compact('foods', 'advertiseFoods', 'title', 'count', 'categories'));
+    }
+
+    public function searchFood(Request $request)
+    {
+        $foods = $this->foodRepository->searchFood($request->search)->get();
+
+        return view('pages.search-food', compact('foods'));
     }
 }

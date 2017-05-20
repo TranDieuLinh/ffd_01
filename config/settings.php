@@ -15,12 +15,14 @@ return [
     */
     'app' => [
         'name' => 'Food & Drink',
+        'default-slide-show' => 0,
     ],
     'food' => [
         'number_rating' => 5,
         'is_read' => 1,
-        'limit' => 7,
+        'limit' => 12,
         'favorite' => 1,
+        'not-found' => 0,
     ],
     'user' => [
         'role' => [

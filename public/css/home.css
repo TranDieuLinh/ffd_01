@@ -1,24 +1,3 @@
-.parallax-div {
-    height: 35px;
-    background: url("http://graphicsheat.com/wp-content/uploads/2013/06/Pink_Background_by_deamaral.jpg");
-    background-size: cover;
-    background-attachement: fixed;
-}
-
-.parallax-text {
-    overflow: hidden;
-    background: #fff;
-    color: #3a3a3a;
-    font-size: 30px;
-    line-height: 30px;
-    font-weight: 900;
-    font-family: 'Roboto', sans-serif;
-    text-transform: uppercase;
-    mix-blend-mode: lighten;
-    margin-top: 0px;
-    height: 35px;
-}
-
 h2.title {
     color: #6666ff !important;
     font-family: 'Roboto', sans-serif;
@@ -111,7 +90,10 @@ div.margin-top {
 }
 
 .btn-custom {
-    width: 100px;
+    width: 130px;
+    color: #fff;
+    background-color: #7db641;
+    border-color: #7db641;
 }
 
 .margin {
@@ -127,4 +109,36 @@ h4.oneline {
 
 .dropdown-toggle {
     width: 200px!important;
+}
+
+
+
+@-webkit-keyframes my {
+    0% { color: #f08080; }
+    50% { color: #fff;  }
+    100% { color: #F8CD0A;  }
+}
+@-moz-keyframes my {
+    0% { color: #f08080;  }
+    50% { color: #fff;  }
+    100% { color: #F8CD0A;  }
+}
+@-o-keyframes my {
+    0% { color: #f08080; }
+    50% { color: #fff; }
+    100% { color: #F8CD0A;  }
+}
+@keyframes my {
+    0% { color: #f08080;  }
+    50% { color: #fff;  }
+    100% { color: #F8CD0A;  }
+}
+.test {
+    /*background:#3d3d3d;*/
+    /*font-size:24px;*/
+    font-weight:bold;
+    -webkit-animation: my 700ms infinite;
+    -moz-animation: my 700ms infinite;
+    -o-animation: my 700ms infinite;
+    animation: my 700ms infinite;
 }

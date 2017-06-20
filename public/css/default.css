@@ -1,0 +1,65 @@
+.alignR {
+    text-align: right;
+}
+
+.topNav {
+    padding: 0;
+    border-bottom: 1px solid #CCC;
+    background: #fff;
+    box-shadow: 0 0 3px #B1AFAF;
+}
+
+.topNav a {
+    font-size: 15px;
+    font-weight: bold;
+    display: inline-block;
+    padding: 8px 4px;
+}
+
+.topNav1 a:hover, .topNav a.active {
+    color: #fff!important;
+    background: #f89406!important;
+    text-decoration: none
+}
+
+.badge-warning {
+    background-color: #f89406;
+}
+
+.icon-shopping-cart:before {
+    content: "\f07a";
+}
+
+.dropdown-custom {
+    max-width: 150px!important;
+}
+
+.parallax-div {
+    height: 35px;
+    background: url("http://graphicsheat.com/wp-content/uploads/2013/06/Pink_Background_by_deamaral.jpg");
+    background-size: cover;
+    background-attachement: fixed;
+}
+
+.parallax-text {
+    overflow: hidden;
+    background: #fff;
+    color: #3a3a3a;
+    font-size: 30px;
+    line-height: 30px;
+    font-weight: 900;
+    font-family: 'Roboto', sans-serif;
+    text-transform: uppercase;
+    mix-blend-mode: lighten;
+    margin-top: 0;
+    height: 35px;
+    animation-name: brand;
+    animation-duration: 1.5s;
+    animation-iteration-count: infinite;
+    animation-timing-function: linear;
+}
+
+@keyframes brand {
+    from {padding-right: 100px;}
+    to {padding-right: 0;}
+}

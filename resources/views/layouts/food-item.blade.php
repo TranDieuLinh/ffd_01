@@ -7,11 +7,11 @@
                          title="{{ $food->name }}"/></a>
             </div>
             <div class="saigo" style="display: none">
-                <a href="" class="margin btn btn-custom btn-success green"><i
-                            class="fa fa-book fa-fw"></i>{{ trans('home.show') }}
+                <a href="{{ route('food.show', $food->id) }}" class="margin btn btn-custom green"><i
+                            class="fa fa-eye fa-fw"></i>VIEW MORE
                 </a>
-                <a href="" class="btn btn-custom btn-success green"><i
-                            class="fa fa-pencil fa-fw"></i>{{ trans('home.add') }}
+                <a href="" class="btn btn-custom green"><i
+                            class="fa fa-shopping-cart fa-fw"></i>ADD TO CART
                 </a>
             </div>
             <h2>{{ $food->prime }} {{ trans('home.vnd') }}</h2>

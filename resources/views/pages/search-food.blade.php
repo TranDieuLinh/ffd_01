@@ -4,5 +4,5 @@
     </div>
 @endif
 @foreach ($foods as $food)
-    @include ('layouts.book-item')
+    @include ('layouts.food-item')
 @endforeach

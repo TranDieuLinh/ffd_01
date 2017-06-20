@@ -35,7 +35,7 @@ class HomeController extends Controller
     {
         $count = 0;
         $advertiseFoods = $this->foodRepository->findAdvertise();
-        $foods = $this->foodRepository->findLatest();
+        $foods = $this->foodRepository->all();
         $categories = $this->categoryRepository->all();
         $title = trans('home.latest-foods');
 

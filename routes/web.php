@@ -28,3 +28,7 @@ Route::group(['middleware' => 'auth'], function () {
         'uses' => 'ProfileController@index'
     ]);
 });
+Route::get('food/{id}', [
+    'as' => 'food.show',
+    'uses' => 'FoodController@show'
+]);

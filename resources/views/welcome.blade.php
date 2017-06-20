@@ -114,7 +114,7 @@
                             </div>
                             <div id="book_content">
                                 @foreach ($foods as $food)
-                                    @include ('layouts.book-item')
+                                    @include ('layouts.food-item')
                                 @endforeach
                             </div>
                         </div>

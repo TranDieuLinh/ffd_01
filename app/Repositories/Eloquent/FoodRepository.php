@@ -82,7 +82,7 @@ class FoodRepository extends BaseRepository implements FoodRepositoryInterface
      */
     public function findLatest()
     {
-        return $this->model->orderBy('date', 'desc')->get();
+        return $this->model->orderBy('date', 'desc')->limit(5);
     }
 
     /**

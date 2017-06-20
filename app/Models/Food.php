@@ -17,7 +17,6 @@ class Food extends Model
         'category_id',
         'image',
         'name',
-        'category_id',
         'prime',
         'rate',
         'rate_count',

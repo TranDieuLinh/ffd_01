@@ -26,4 +26,15 @@ class Comment extends Model
     {
         return $this->belongsTo(Food::class);
     }
+
+    public function repComments()
+    {
+        return $this->hasMany(RepComment::class);
+    }
+
+    public function scopeDeleteById($query, $id)
+    {
+        $query->where('id', '=', $id)->get()->first()->repComments()->delete();
+        $query->where('id', '=', $id)->delete();
+    }
 }

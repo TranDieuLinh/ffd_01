@@ -8,9 +8,20 @@
 
 namespace App\Http\Controllers;
 
+use App\Repositories\Contracts\UserRepositoryInterface;
+use Illuminate\Support\Facades\Auth;
 
 class ProfileController extends Controller
 {
+    protected $userRepository;
+
+    public function __construct(
+        UserRepositoryInterface $userRepository
+    )
+    {
+        $this->userRepository = $userRepository;
+    }
+
     /**
      * Show the application dashboard.
      *
@@ -18,6 +29,7 @@ class ProfileController extends Controller
      */
     public function index()
     {
-        return view('home');
+        $user = $this->userRepository->with(['likes'])->find(Auth::user()->id);
+        return view('home', compact('user'));
     }
 }

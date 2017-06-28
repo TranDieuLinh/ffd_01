@@ -32,3 +32,11 @@ Route::get('food/{id}', [
     'as' => 'food.show',
     'uses' => 'FoodController@show'
 ]);
+
+Route::get('comment', ['uses' => 'FoodController@commet', 'as' => 'comment']);
+Route::post('food/deleteRepComment', 'FoodController@deleteRepComment');
+Route::post('food/deleteComment', 'FoodController@deleteComment');
+Route::post('food/comment', 'FoodController@comment');
+Route::post('food/repComment', 'FoodController@repComment');
+Route::post('food/editRepComment', 'FoodController@editRepComment');
+Route::post('food/editComment', 'FoodController@editComment');

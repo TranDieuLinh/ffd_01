@@ -90,7 +90,7 @@ class FoodRepository extends BaseRepository implements FoodRepositoryInterface
      */
     public function findAdvertise()
     {
-        return $this->model->where('advertise', '<>', NULL)->get();
+        return $this->model->where('advertise', '<>', '')->get();
     }
 
     /**

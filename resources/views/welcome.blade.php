@@ -30,7 +30,7 @@
                                 @if($count == config('settings.app.default-slide-show'))
                                     <div class="item active">
                                         <div class="text-center">
-                                            <a href="">
+                                            <a href="{{ route('food.show', $food->id) }}">
                                                 <img class="slide" name="image" src="{{ $food->advertise }}" title="{{ $food->name }}"/>
                                             </a>
                                         </div>
@@ -39,7 +39,7 @@
                                 @else
                                     <div class="item">
                                         <div class="text-center">
-                                            <a href="">
+                                            <a href="{{ route('food.show', $food->id) }}">
                                                 <img class="slide" name="image" src="{{ $food->advertise }}" title="{{ $food->name }}"/>
                                             </a>
                                         </div>

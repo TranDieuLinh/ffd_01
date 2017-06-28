@@ -21,3 +21,12 @@ $(document).on('keyup', '#searchFood', function (){
         $('#book_content').html(data);
     });
 });
+
+$(document).on('click', '#addToCart', function (){
+    var url = '/addToCart/food';
+    var key = $(this).val();
+
+    $.get(url, { search: key }, function (data) {
+        $('#book_content').html(data);
+    });
+});

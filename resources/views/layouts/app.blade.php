@@ -58,12 +58,12 @@
                     <ul class="nav navbar-nav navbar-right topNav1">
                         <!-- Authentication Links -->
                         @if (Auth::guest())
-                            <li><a href="cart.html"><i class="fa fa-shopping-cart fa-fw"></i>2 Item(s) - <span class="badge badge-warning"> $448.42</span></a></li>
+                            <li><a href="#"><i class="fa fa-shopping-cart fa-fw"></i><span class="cart-count">{{ Cart::count() }} Item(s) - </span><span class="badge badge-warning money"> {{ Cart::subtotal() }}</span></a></li>
                             <li><a href="{{ route('login') }}">Login</a></li>
                             <li><a href="{{ route('register') }}">Register</a></li>
                         @else
                             <li><a href="{{ url('/home') }}"><i class="fa fa-home fa-fw"></i> Home</a></li>
-                            <li><a href="cart.html"><i class="fa fa-shopping-cart fa-fw"></i>2 Item(s) - <span class="badge badge-warning"> $448.42</span></a></li>
+                            <li><a href="#"><i class="fa fa-shopping-cart fa-fw"></i><span class="cart-count">{{ Cart::count() }} Item(s) - </span><span class="badge badge-warning money"> {{ Cart::subtotal() }}</span></a></li>
                             <li class="dropdown">
                                 <a href="#" class="dropdown-toggle dropdown-custom" data-toggle="dropdown" role="button" aria-expanded="false">
                                     <i class="fa fa-user fa-fw"></i>

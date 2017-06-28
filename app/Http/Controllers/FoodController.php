@@ -14,6 +14,7 @@ use App\Repositories\Contracts\CategoryRepositoryInterface;
 use App\Repositories\Contracts\FoodRepositoryInterface;
 use Illuminate\Http\Request;
 use Auth;
+use Cart;
 
 class FoodController extends Controller
 {
@@ -35,7 +36,7 @@ class FoodController extends Controller
         $category = $this->categoryRepository->find($food->category_id);
         $comments = $food->comments()->with(['repComments', 'user'])->get();
         if ($food->rate_count > 0) {
-            $score = number_format($food->score / $food->rate_count, 2);
+            $score = number_format($food->rate / $food->rate_count, 2);
         } else {
             $score = 0;
         }
@@ -43,6 +44,24 @@ class FoodController extends Controller
         $sames = $category->foods()->get();
 
         return view('pages.food-details')->with(compact('food', 'score', 'latest', 'category', 'sames', 'comments'));
+    }
+
+    public function addToCart(Request $request)
+    {
+        $productId = $request->productId;
+        $product = $this->foodRepository->find($productId);
+        $quantity = $request->quantity;
+        Cart::add("$product->id", "$product->name", $quantity, $product->prime);
+//        Cart::add([
+//            ['id' => $product->id, 'name' => $product->name, 'qty' => 1, 'price' => $product->price],
+//            ['id' => '4832k', 'name' => 'Product 2', 'qty' => 1, 'price' => 10.00, 'options' => ['size' => 'large']]
+//        ]);
+
+        return response()
+            ->json([
+                'count' => Cart::count(),
+                'money' => Cart::subtotal(),
+            ]);
     }
 
     public function deleteRepComment(Request $request)

@@ -34,6 +34,7 @@ Route::get('food/{id}', [
 ]);
 
 Route::get('comment', ['uses' => 'FoodController@commet', 'as' => 'comment']);
+Route::post('food/addToCart', 'FoodController@addToCart');
 Route::post('food/deleteRepComment', 'FoodController@deleteRepComment');
 Route::post('food/deleteComment', 'FoodController@deleteComment');
 Route::post('food/comment', 'FoodController@comment');

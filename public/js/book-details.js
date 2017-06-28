@@ -11,6 +11,35 @@ $('.thumbnail').mouseleave(function() {
 
 $(document).ready(function() {
 
+    // add to cart
+    $('.addToCart').on('click', function(event, value, caption) {
+        var product = $(this).data("product");
+        var quantity = $(this).data("quantity");
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name = "csrf-token"]').attr('content')
+            }
+        });
+
+        var data = {
+            productId: product,
+            quantity: quantity
+        };
+        $.ajax({
+            url: './addToCart',
+            method: 'POST',
+            data: data,
+            success: function (response) {
+                //Update rate
+                console.log(response.money);
+                $('.cart-count').text('' + response.count + 'Item(s) -');
+                $('.money').text(response.money);
+            },
+            error: function () {
+            }
+        });
+    });
+
     // Delete rep-comment
     $(document).on('click', '.delete-comment', function () {
         if (!confirm("Bạn có chắc chắn muốn xóa bình luận này không?")) return;

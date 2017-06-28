@@ -492,6 +492,11 @@ textarea.span5,
 
 .control-group {
     margin-bottom: 10px;
+    padding-left: 30px!important;
+}
+
+.label-custom {
+    margin-left: 0!important;
 }
 
 legend + .control-group {
@@ -517,9 +522,9 @@ legend + .control-group {
 
 .form-horizontal .control-label {
     float: left;
-    width: 100px;
+    width: 120px;
     padding-top: 5px;
-    text-align: right;
+    text-align: left;
 }
 
 .control-group.info .control-label,
@@ -549,7 +554,7 @@ legend + .control-group {
 .form-horizontal .controls {
     *display: inline-block;
     *padding-left: 20px;
-    margin-left: 180px;
+    margin-left: 18px;
     *margin-left: 0;
 }
 
@@ -1128,4 +1133,16 @@ ul {
     .reply-list .comment-box {
         width: 320px;
     }
+}
+
+.colorstar { color: #ee8b2d;}
+.badForm {color: #FF0000;}
+.goodForm {color: #00FF00;}
+.evaluation { margin-left:30px;}
+.lead {
+    font-size: 29px!important;
+}
+
+.score {
+    margin-top: 10px!important;
 }

@@ -21,10 +21,15 @@
                         <hr class="soft"/>
 
                         <form class="form-horizontal qtyFrm">
+                            <div class="row lead evaluation">
+                                <div id="stars-existing" class="starrr colorstar" data-rating='4'></div>
+                                <span class="badge badge-warning score">Vote Point:  {{ $score }}</span>
+                                {{--<span id="meaning"> </span>--}}
+                            </div>
                             <div class="control-group">
-                                <label class="control-label"><span>$140.00</span></label>
+                                <label class="control-label label-custom"><span>SỐ LƯỢNG: </span></label>
                                 <div class="controls">
-                                    <input type="number" class="span6" placeholder="Qty.">
+                                    <input type="number" min="1" max="{{ $food->quantity }}" value = "{{ $food->quantity }}" id="quantity" class="span3">
                                 </div>
                             </div>
                             {{--<div class="control-group">--}}
@@ -53,8 +58,8 @@
                             {{--<p>Nowadays the lingerie industry is one of the most successful business spheres.--}}
                             {{--Nowadays the lingerie industry is one of ...--}}
                             {{--<p>--}}
-                            <button type="submit" class="shopBtn"><i class="fa fa-shopping-cart fa-fw"></i> Add to cart
-                            </button>
+                            <a type="submit" class="shopBtn addToCart" data-product="{{$food->id}}" data-quantity = quantity.value ><i class="fa fa-shopping-cart fa-fw"></i> Add to cart
+                            </a>
                         </form>
                     </div>
                 </div>
@@ -222,8 +227,8 @@
                                         <form class="form-horizontal qtyFrm">
                                             <h3>{{ $same->prime }} VNĐ</h3>
                                             <div class="btn-group">
-                                                <a href="{{ route('food.show', $same->id) }}" class="defaultBtn"><i
-                                                            class="fa fa-shopping-cart fa-fw" id="addToCart"></i> Add to
+                                                <a class="defaultBtn addToCart" data-product="{{$same->id}}" data-quantity = 1><i
+                                                            class="fa fa-shopping-cart fa-fw"></i> Add to
                                                     cart</a>
                                                 <a href="{{ route('food.show', $same->id) }}" class="shopBtn">VIEW</a>
                                             </div>
@@ -260,4 +265,5 @@
 @section('script')
     {{ Html::script('/js/home.js') }}
     {{ Html::script('/js/book-details.js') }}
+    {{ Html::script('/js/star-rating.js') }}
 @endsection

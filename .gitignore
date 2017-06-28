@@ -1,13 +1,9 @@
-/node_modules
-/public/hot
-/public/storage
 /bower_components
-/public/bower_components
+/node_modules
 /storage/*.key
-/vendor
 /.idea
 /.vagrant
 Homestead.json
 Homestead.yaml
 npm-debug.log
-.env
+/vendor

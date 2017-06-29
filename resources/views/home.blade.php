@@ -134,7 +134,7 @@
                     @foreach($user->likes as $like)
                             <div class="row-fluid">
                                 <div class="span2">
-                                    <img src="{{ $like->food->image }}">
+                                    <img class="max-hi" src="{{ $like->food->image }}">
                                 </div>
                                 <div class="span6">
                                     <h5>{{ $like->food->name }} </h5>

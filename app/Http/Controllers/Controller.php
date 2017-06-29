@@ -28,16 +28,45 @@ class Controller extends BaseController
         $product = $this->foodRepository->find($productId);
         $quantity = $request->quantity;
 
-        Cart::add("$product->id", "$product->name", $quantity, $product->prime);
-//        Cart::add([
-//            ['id' => $product->id, 'name' => $product->name, 'qty' => 1, 'price' => $product->price],
-//            ['id' => '4832k', 'name' => 'Product 2', 'qty' => 1, 'price' => 10.00, 'options' => ['size' => 'large']]
-//        ]);
+        Cart::add("$product->id", "$product->name", $quantity, $product->prime, ['image' => "$product->image"]);
 
         return response()
             ->json([
                 'count' => Cart::count(),
                 'money' => Cart::subtotal(),
             ]);
+    }
+
+    public function deleteRow(Request $request)
+    {
+        $rowId = $request->row_id;
+        Cart::remove($rowId);
+
+        return response()
+            ->json([
+                'count' => Cart::count(),
+                'money' => Cart::subtotal(),
+            ]);
+    }
+
+    public function updateRow(Request $request)
+    {
+        $rowId = $request->row_id;
+        $quantity = $request->quantity;
+        Cart::update($rowId, $quantity);
+
+        return response()
+            ->json([
+                'quantity'=> $quantity,
+                'count' => Cart::count(),
+                'money' => Cart::subtotal(),
+            ]);
+    }
+
+    public function itemFood(Request $request)
+    {
+        $rows = Cart::content();
+
+        return view('pages.cart-item-page', compact('rows'));
     }
 }

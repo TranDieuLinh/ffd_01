@@ -16,7 +16,7 @@
             <div class="comment-content com-content"></div>
             <div class="comment-content edit-comment-content" style="display: none">
                 <input type="hidden" name="food-id" value="">
-                <textarea name="comment" placeholder=""></textarea>
+                <textarea class="edit-text" name="comment" placeholder=""></textarea>
                 <button type="submit"
                         class="btn btn-success btn-edit-comment green">Edit</button>
             </div>
@@ -43,7 +43,7 @@
                 <div class="comment-content review-content"></div>
                 <div class="comment-content edit-review-content" style="display: none">
                     <input type="hidden" name="food-id" value="food_id">
-                    <textarea name="review" placeholder="Viết nhận xét về sách?"></textarea>
+                    <textarea class="edit-text" name="review" placeholder="Viết nhận xét?"></textarea>
                     <button type="submit"
                             class="btn btn-success btn-edit-review green">Comment</button>
                 </div>
@@ -64,7 +64,7 @@
                         <input name="status" type="hidden" value="">
                         <input type="hidden" name="-id-comment" value="">
                         <textarea name="comment"
-                                  placeholder="Viết bình luận?"></textarea>
+                                  class="edit-text" placeholder="Viết bình luận?"></textarea>
                         <button type="button"
                                 class="btn btn-comment green">Comment
                         </button>

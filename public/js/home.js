@@ -32,41 +32,6 @@ $(document).on('click', '#addToCart', function (){
 });
 
 $(document).ready(function() {
-    // add to cart
-    $('.addToCart').on('click', function (event, value, caption) {
-        var product = $(this).data("product");
-        var type = $(this).data("type");
-        var quantity = 1;
-        var self = $(this);
-        if (type != 1) {
-            quantity = $(this).closest('.quantity-js').find('input[name="quantity"]').val();
-        }
-        console.log(quantity);
-        $.ajaxSetup({
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name = "csrf-token"]').attr('content')
-            }
-        });
-
-        var data = {
-            productId: product,
-            quantity: quantity
-        };
-        $.ajax({
-            url: '/addToCart',
-            method: 'POST',
-            data: data,
-            success: function (response) {
-                //Update rate
-                console.log(response.money);
-                $('.cart-count').text('' + response.count + 'Item(s) -');
-                $('.money').text(response.money);
-            },
-            error: function () {
-            }
-        });
-    });
-
     //edit profile
     $(document).on('click', '.btn-sm', function() {
         var $edit_box = $(this).closest('.edit-box');

@@ -30,21 +30,21 @@
                             </div>
 
                                 @if(count($like)!= 0)
-                                    <a class="btn btn-app unlike like-two" data-like="0">
+                                    <a class="btn btn-app unlike like-two marg-left25" data-like="0">
                                         <span class="badge bg-red">{{ count($food->likes()->get()) }}</span>
                                         <i class="fa fa-heart like-red"></i>Like
                                     </a>
                                     @else
-                                    <a class="btn btn-app like" data-like="1">
+                                    <a class="btn btn-app like marg-left25" data-like="1">
                                         <span class="badge bg-red">{{ count($food->likes()->get()) }}</span>
                                         <i class="fa fa-heart"></i>Like
                                     </a>
                                 @endif
-                                <a class="btn btn-app unlike like-one" data-like="0" style="display: none">
+                                <a class="btn btn-app unlike like-one marg-left25" data-like="0" style="display: none">
                                     <span class="badge bg-red" id="span-unlike">{{ count($food->likes()->get()) }}</span>
                                     <i class="fa fa-heart like-red"></i>Like
                                 </a>
-                                <a class="btn btn-app like unlike-one " data-like="1" type="" style="display: none">
+                                <a class="btn btn-app like unlike-one marg-left25" data-like="1" type="" style="display: none">
                                     <span class="badge bg-red" id="span-like">{{ count($food->likes()->get()) }}</span>
                                     <i class="fa fa-heart"></i>Like
                                 </a>
@@ -54,9 +54,10 @@
                                     <i class="fa fa-share-alt"></i>Share
                                 </a>
                             <div class="control-group">
-                                <label class="control-label label-custom"><span>SỐ LƯỢNG: </span></label>
+
                                 <div class="controls">
-                                    <input type="number" min="1" max="{{ $food->quantity }}" value = "{{ $food->quantity }}" name="quantity" class="span3">
+                                    <label style="margin-left: 20px" class="control-label label-custom"><span>SỐ LƯỢNG:  </span></label>
+                                    <input type="number" min="1" max="{{ $food->quantity }}" value = "{{ $food->quantity }}" name="quantity">
                                 </div>
                             </div>
                             <a type="submit" class="shopBtn addToCart" data-product="{{$food->id}}" data-type = 2 ><i class="fa fa-shopping-cart fa-fw"></i> Add to cart
@@ -124,7 +125,7 @@
                                                     <div class="comment-content review-content">{{ $comment->content }}</div>
                                                     <div class="comment-content edit-review-content" style="display: none">
                                                         <input type="hidden" name="food-id" value="{{ $food->id }}">
-                                                        <textarea name="review" placeholder="Binh luan ve mon an..."></textarea>
+                                                        <textarea name="review" class="edit-text" placeholder="Binh luan ve mon an..."></textarea>
                                                         <button type="submit"
                                                                 class="btn btn-success btn-edit-review green">Edit</button>
                                                     </div>
@@ -153,7 +154,7 @@
                                                                 <div class="comment-content com-content">{{ $rep->content }}</div>
                                                                 <div class="comment-content edit-comment-content" style="display: none">
                                                                     <input type="hidden" name="food-id" value="{{ $food->id }}">
-                                                                    <textarea name="comment" placeholder=""></textarea>
+                                                                    <textarea name="comment" class="edit-text" placeholder=""></textarea>
                                                                     <button type="submit"
                                                                             class="btn btn-success btn-edit-comment green">Edit</button>
                                                                 </div>
@@ -175,7 +176,7 @@
                                                             <div class="comment-content">
                                                                 <input name="status" type="hidden" value="{{ $comment->id }}">
                                                                 <input type="hidden" name="food-id-comment" value="{{ $food->id }}">
-                                                                <textarea name="comment"
+                                                                <textarea name="comment" class="edit-text"
                                                                           placeholder="Viết bình luận?"></textarea>
                                                                 <button type="button"
                                                                         class="btn btn-comment green">Comment
@@ -203,7 +204,7 @@
                                                 </div>
                                                 <div class="comment-content">
                                                     <input type="hidden" name="food-id" value="{{ $food->id }}">
-                                                    <textarea name="review" placeholder="Cảm nhận về món ăn..."></textarea>
+                                                    <textarea name="review" class="edit-text" placeholder="Cảm nhận về món ăn..."></textarea>
                                                     <button type="submit"
                                                             class="btn btn-success btn-review green">Comment</button>
                                                 </div>
@@ -219,7 +220,7 @@
                             @if( $same->id != $food->id)
                                 <div class="row-fluid">
                                     <div class="span2">
-                                        <img src="{{ $same->image }}">
+                                        <img class="max-hi" src="{{ $same->image }}">
                                     </div>
                                     <div class="span6">
                                         <h5>{{ $same->name }} </h5>

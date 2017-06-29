@@ -74,29 +74,29 @@
                                 <div class="col-md-8 col-xs-12 col-sm-8 margin-top">
                                     <div class="row">
                                         <div class="col-md-6 col-xs-6 col-sm-6 dropdown filter-custom">
-                                            <button class="btn btn-default dropdown-toggle" type="button" id="menu1"
-                                                    data-toggle="dropdown">{{ trans('home.all') }}
-                                                <span class="caret"></span></button>
-                                            <ul class="dropdown-menu" role="menu" aria-labelledby="menu1">
-                                                @foreach ($categories as $category)
-                                                    <li role="presentation">
-                                                        <a role="menuitem" tabindex="-1" href="#">{{ $category->name }}</a>
-                                                    </li>
-                                                @endforeach
-                                            </ul>
+                                            {{--<button class="btn btn-default dropdown-toggle" type="button" id="menu1"--}}
+                                                    {{--data-toggle="dropdown">{{ trans('home.all') }}--}}
+                                                {{--<span class="caret"></span></button>--}}
+                                            {{--<ul class="dropdown-menu" role="menu" aria-labelledby="menu1">--}}
+                                                {{--@foreach ($categories as $category)--}}
+                                                    {{--<li role="presentation">--}}
+                                                        {{--<a role="menuitem" tabindex="-1" href="#">{{ $category->name }}</a>--}}
+                                                    {{--</li>--}}
+                                                {{--@endforeach--}}
+                                            {{--</ul>--}}
                                         </div>
                                         <div class="col-md-6 col-xs-6 col-sm-6 dropdown filter-custom">
-                                            <button class="btn btn-default dropdown-toggle" type="button" id="menu1"
-                                                    data-toggle="dropdown">{{ trans('home.filter') }}
-                                                <span class="caret"></span></button>
-                                            <ul class="dropdown-menu" role="menu" aria-labelledby="menu1">
-                                                <li role="presentation">
-                                                    <a role="menuitem" tabindex="-1" href="#">{{ trans('home.filter-price') }}</a>
-                                                </li>
-                                                <li role="presentation">
-                                                    <a role="menuitem" tabindex="-1" href="#">{{ trans('home.filter-date') }}</a>
-                                                </li>
-                                            </ul>
+                                            {{--<button class="btn btn-default dropdown-toggle" type="button" id="menu1"--}}
+                                                    {{--data-toggle="dropdown">{{ trans('home.filter') }}--}}
+                                                {{--<span class="caret"></span></button>--}}
+                                            {{--<ul class="dropdown-menu" role="menu" aria-labelledby="menu1">--}}
+                                                {{--<li role="presentation">--}}
+                                                    {{--<a role="menuitem" tabindex="-1" href="#">{{ trans('home.filter-price') }}</a>--}}
+                                                {{--</li>--}}
+                                                {{--<li role="presentation">--}}
+                                                    {{--<a role="menuitem" tabindex="-1" href="#">{{ trans('home.filter-date') }}</a>--}}
+                                                {{--</li>--}}
+                                            {{--</ul>--}}
                                         </div>
                                     </div>
                                 </div>

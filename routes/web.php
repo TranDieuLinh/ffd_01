@@ -22,6 +22,10 @@ Route::get('search/food', [
     'uses' => 'HomeController@searchFood'
 ]);
 
+Route::get('item/food', [
+    'as' => 'item.food',
+    'uses' => 'Controller@itemFood'
+]);
 Route::group(['middleware' => 'auth'], function () {
     Route::get('home', [
         'as' => 'home',
@@ -43,6 +47,8 @@ Route::post('food/repComment', 'FoodController@repComment');
 Route::post('food/editRepComment', 'FoodController@editRepComment');
 Route::post('food/editComment', 'FoodController@editComment');
 Route::post('/addToCart', 'Controller@addToCart');
+Route::post('/deleteRow', 'Controller@deleteRow');
+Route::post('/updateRow', 'Controller@updateRow');
 Route::post('food/vote', 'FoodController@vote');
 Route::post('food/unLike', 'FoodController@unLike');
 Route::post('food/like', 'FoodController@like');

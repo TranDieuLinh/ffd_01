@@ -3,15 +3,15 @@
  */
 var userId = $("#stars-existing").data("userid");
 var foodId = $("#stars-existing").data("foodid");
-$('.thumbnail').mouseenter(function() {
+$('.thumbnail').mouseenter(function () {
     $(this).children('.zoomTool').fadeIn();
 });
 
-$('.thumbnail').mouseleave(function() {
+$('.thumbnail').mouseleave(function () {
     $(this).children('.zoomTool').fadeOut();
 });
 
-$(document).ready(function() {
+$(document).ready(function () {
 
     // Delete rep-comment
     $(document).on('click', '.delete-comment', function () {
@@ -41,7 +41,7 @@ $(document).ready(function() {
     });
 
     // Delete comment
-    $(document).on('click', '.delete-review',function () {
+    $(document).on('click', '.delete-review', function () {
         if (!confirm("Bạn có chắc chắn muốn xóa bình luận này không?")) return;
         var reviewIdDelete = $(this).data('reviewid');
         var self = $(this);
@@ -54,7 +54,7 @@ $(document).ready(function() {
             comment_id: reviewIdDelete
         };
         $.ajax({
-            url : './deleteComment',
+            url: './deleteComment',
             method: 'POST',
             data: data,
             success: function (response) {
@@ -69,7 +69,7 @@ $(document).ready(function() {
     });
 
     // Write rep-comment
-    $(document).on('click', '.btn-comment', function() {
+    $(document).on('click', '.btn-comment', function () {
         var comment_id = $(this).closest('.comments-list').data('reviewid');
         var food_id = $(this).closest('.comment-content').find('input[name="food-id-comment"]').val();
         var content = $(this).closest('.comment-content').find('textarea[name="comment"]').val();
@@ -111,7 +111,7 @@ $(document).ready(function() {
     });
 
     // Write comment
-    $('.btn-review').on('click', function() {
+    $('.btn-review').on('click', function () {
         var food_id = $(this).closest('.comment-content').find('input[name="food-id"]').val();
         var content = $(this).closest('.comment-content').find('textarea[name="review"]').val();
         var self = $(this);
@@ -141,7 +141,7 @@ $(document).ready(function() {
                 $html.find('.delete-review').attr('data-reviewid', comment.id);
                 $html.find('.review-content').html(comment.content);
                 $html.find('input[name="food_id"]').val(food_id);
-                $html.find('.reply-list').attr('id',"comment-" + comment.id);
+                $html.find('.reply-list').attr('id', "comment-" + comment.id);
                 $html.find('.comments-list').attr('data-reviewid', comment.id);
                 $html.find('.comment-ava img').prop('src', user.avatar);
                 $html.find('.comment-comment-name a').html(user.name);
@@ -159,7 +159,7 @@ $(document).ready(function() {
     });
 
     // Edit comment UI
-    $(document).on('click', '.edit-review', function() {
+    $(document).on('click', '.edit-review', function () {
         var $comment_box = $(this).closest('.comment-box');
         var review_text = $comment_box.find('.review-content').text();
         $comment_box.find('textarea[name="review"]').val(review_text);
@@ -167,7 +167,7 @@ $(document).ready(function() {
         $comment_box.find('.edit-review-content').show();
     });
 
-    $(document).on('click', '.btn-edit-review', function() {
+    $(document).on('click', '.btn-edit-review', function () {
         var comment_id = $(this).closest('.comment-box').find('.edit-review').data('reviewid');
         var comment_content = $(this).closest('.edit-review-content').find('textarea[name="review"]').val();
         var self = $(this);
@@ -197,7 +197,7 @@ $(document).ready(function() {
     });
 
     //Edit rep-comment
-    $(document).on('click', '.edit-comment', function() {
+    $(document).on('click', '.edit-comment', function () {
         var $comment_box = $(this).closest('.comment-box');
         var comment_text = $comment_box.find('.com-content').text();
         // console.log(comment_text);
@@ -206,7 +206,7 @@ $(document).ready(function() {
         $comment_box.find('.edit-comment-content').show();
     });
 
-    $(document).on('click', '.btn-edit-comment', function() {
+    $(document).on('click', '.btn-edit-comment', function () {
         var rep_comment_id = $(this).closest('.comment-box').find('.edit-comment').data('commentid');
         var rep_comment_content = $(this).closest('.edit-comment-content').find('textarea[name="comment"]').val();
         var self = $(this);
@@ -236,14 +236,15 @@ $(document).ready(function() {
     });
 
     //
-    $(document).on('click','.reply-review', function ($response) {
+    $(document).on('click', '.reply-review', function ($response) {
         console.log($(this).data('reviewid'));
         var id = $(this).data('reviewid');
         $("#comment-" + id).toggleClass('hidden');
     });
 
     //unlike
-        $(document).on('click', '.unlike', function() {
+    $(document).on('click', '.unlike', function () {
+        if (userId) {
             var self = $(this);
             $.ajaxSetup({
                 headers: {
@@ -254,7 +255,7 @@ $(document).ready(function() {
                 user_id: userId,
                 food_id: foodId
             };
-
+            console.log(userId);
             $.ajax({
                 url: './unLike',
                 method: 'POST',
@@ -271,37 +272,41 @@ $(document).ready(function() {
                 error: function () {
                 }
             });
+        }
+
     });
 
     //like
-    $(document).on('click', '.like', function() {
-        var self = $(this);
-        $.ajaxSetup({
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name = "csrf-token"]').attr('content')
-            }
-        });
-        var data = {
-            user_id: userId,
-            food_id: foodId
-        };
+    $(document).on('click', '.like', function () {
+        if (userId) {
+            var self = $(this);
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name = "csrf-token"]').attr('content')
+                }
+            });
+            var data = {
+                user_id: userId,
+                food_id: foodId
+            };
 
-        $.ajax({
-            url: './like',
-            method: 'POST',
-            data: data,
-            success: function (response) {
-                console.log(response.like_count);
-                var $box_like = $(self).closest('.quantity-js');
-                $box_like.find('.unlike').find('#span-unlike').text(response.like_count);
-                $box_like.find('.like').hide();
-                $box_like.find('.like-two').hide();
-                $box_like.find('.like-one').show();
+            $.ajax({
+                url: './like',
+                method: 'POST',
+                data: data,
+                success: function (response) {
+                    console.log(response.like_count);
+                    var $box_like = $(self).closest('.quantity-js');
+                    $box_like.find('.unlike').find('#span-unlike').text(response.like_count);
+                    $box_like.find('.like').hide();
+                    $box_like.find('.like-two').hide();
+                    $box_like.find('.like-one').show();
 
-            },
-            error: function () {
-            }
-        });
+                },
+                error: function () {
+                }
+            });
+        }
     });
 
 

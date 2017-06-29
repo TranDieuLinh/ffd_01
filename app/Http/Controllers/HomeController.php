@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Repositories\Contracts\CategoryRepositoryInterface;
 use App\Repositories\Contracts\FoodRepositoryInterface;
 use Illuminate\Http\Request;
+use Cart;
 
 class HomeController extends Controller
 {

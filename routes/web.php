@@ -27,6 +27,8 @@ Route::group(['middleware' => 'auth'], function () {
         'as' => 'home',
         'uses' => 'ProfileController@index'
     ]);
+    Route::get('editProfile', ['uses' => 'ProfileController@editProfile', 'as' => 'editProfile']);
+    Route::post('home/editProfile', 'ProfileController@editProfile');
 });
 Route::get('food/{id}', [
     'as' => 'food.show',
@@ -34,10 +36,13 @@ Route::get('food/{id}', [
 ]);
 
 Route::get('comment', ['uses' => 'FoodController@commet', 'as' => 'comment']);
-Route::post('food/addToCart', 'FoodController@addToCart');
 Route::post('food/deleteRepComment', 'FoodController@deleteRepComment');
 Route::post('food/deleteComment', 'FoodController@deleteComment');
 Route::post('food/comment', 'FoodController@comment');
 Route::post('food/repComment', 'FoodController@repComment');
 Route::post('food/editRepComment', 'FoodController@editRepComment');
 Route::post('food/editComment', 'FoodController@editComment');
+Route::post('/addToCart', 'Controller@addToCart');
+Route::post('food/vote', 'FoodController@vote');
+Route::post('food/unLike', 'FoodController@unLike');
+Route::post('food/like', 'FoodController@like');

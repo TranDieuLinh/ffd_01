@@ -21,45 +21,47 @@
                         <hr class="soft"/>
 
                         <form class="form-horizontal qtyFrm">
+                            <div class="quantity-js">
                             <div class="row lead evaluation">
-                                <div id="stars-existing" class="starrr colorstar" data-rating='4'></div>
+                                <div id="stars-existing" class="starrr colorstar" data-rating="{{ $value }}"
+                                     data-userid="{{Auth::guest()? 0 : Auth::user()->id }}" data-foodid="{{ $food->id }}"></div>
                                 <span class="badge badge-warning score">Vote Point:  {{ $score }}</span>
                                 {{--<span id="meaning"> </span>--}}
                             </div>
+
+                                @if(count($like)!= 0)
+                                    <a class="btn btn-app unlike like-two" data-like="0">
+                                        <span class="badge bg-red">{{ count($food->likes()->get()) }}</span>
+                                        <i class="fa fa-heart like-red"></i>Like
+                                    </a>
+                                    @else
+                                    <a class="btn btn-app like" data-like="1">
+                                        <span class="badge bg-red">{{ count($food->likes()->get()) }}</span>
+                                        <i class="fa fa-heart"></i>Like
+                                    </a>
+                                @endif
+                                <a class="btn btn-app unlike like-one" data-like="0" style="display: none">
+                                    <span class="badge bg-red" id="span-unlike">{{ count($food->likes()->get()) }}</span>
+                                    <i class="fa fa-heart like-red"></i>Like
+                                </a>
+                                <a class="btn btn-app like unlike-one " data-like="1" type="" style="display: none">
+                                    <span class="badge bg-red" id="span-like">{{ count($food->likes()->get()) }}</span>
+                                    <i class="fa fa-heart"></i>Like
+                                </a>
+
+                                <a class="btn btn-app">
+                                    <span class="badge bg-teal">{{ $food->share_count }}</span>
+                                    <i class="fa fa-share-alt"></i>Share
+                                </a>
                             <div class="control-group">
                                 <label class="control-label label-custom"><span>SỐ LƯỢNG: </span></label>
                                 <div class="controls">
-                                    <input type="number" min="1" max="{{ $food->quantity }}" value = "{{ $food->quantity }}" id="quantity" class="span3">
+                                    <input type="number" min="1" max="{{ $food->quantity }}" value = "{{ $food->quantity }}" name="quantity" class="span3">
                                 </div>
                             </div>
-                            {{--<div class="control-group">--}}
-                            {{--<label class="control-label"><span>Color</span></label>--}}
-                            {{--<div class="controls">--}}
-                            {{--<select class="span11">--}}
-                            {{--<option>Red</option>--}}
-                            {{--<option>Purple</option>--}}
-                            {{--<option>Pink</option>--}}
-                            {{--<option>Red</option>--}}
-                            {{--</select>--}}
-                            {{--</div>--}}
-                            {{--</div>--}}
-                            {{--<div class="control-group">--}}
-                            {{--<label class="control-label"><span>Materials</span></label>--}}
-                            {{--<div class="controls">--}}
-                            {{--<select class="span11">--}}
-                            {{--<option>Material 1</option>--}}
-                            {{--<option>Material 2</option>--}}
-                            {{--<option>Material 3</option>--}}
-                            {{--<option>Material 4</option>--}}
-                            {{--</select>--}}
-                            {{--</div>--}}
-                            {{--</div>--}}
-                            {{--<h4>100 items in stock</h4>--}}
-                            {{--<p>Nowadays the lingerie industry is one of the most successful business spheres.--}}
-                            {{--Nowadays the lingerie industry is one of ...--}}
-                            {{--<p>--}}
-                            <a type="submit" class="shopBtn addToCart" data-product="{{$food->id}}" data-quantity = quantity.value ><i class="fa fa-shopping-cart fa-fw"></i> Add to cart
+                            <a type="submit" class="shopBtn addToCart" data-product="{{$food->id}}" data-type = 2 ><i class="fa fa-shopping-cart fa-fw"></i> Add to cart
                             </a>
+                        </div>
                         </form>
                     </div>
                 </div>
@@ -227,7 +229,7 @@
                                         <form class="form-horizontal qtyFrm">
                                             <h3>{{ $same->prime }} VNĐ</h3>
                                             <div class="btn-group">
-                                                <a class="defaultBtn addToCart" data-product="{{$same->id}}" data-quantity = 1><i
+                                                <a class="defaultBtn addToCart" data-product="{{$same->id}}" data-type = 1><i
                                                             class="fa fa-shopping-cart fa-fw"></i> Add to
                                                     cart</a>
                                                 <a href="{{ route('food.show', $same->id) }}" class="shopBtn">VIEW</a>

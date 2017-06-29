@@ -10,7 +10,7 @@
                 <a href="{{ route('food.show', $food->id) }}" class="margin btn btn-custom green"><i
                             class="fa fa-eye fa-fw"></i>VIEW MORE
                 </a>
-                <a href="" class="btn btn-custom green"><i
+                <a class="btn btn-custom green addToCart" data-product="{{$food->id}}" data-type = 1><i
                             class="fa fa-shopping-cart fa-fw"></i>ADD TO CART
                 </a>
             </div>

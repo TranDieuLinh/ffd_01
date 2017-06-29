@@ -27,4 +27,9 @@ class Like extends Model
     {
         return $this->belongsTo(Food::class);
     }
+
+    public function scopeFindLike($query, $food_id, $user_id)
+    {
+        return $query->where(['food_id' => $food_id, 'user_id' => $user_id]);
+    }
 }

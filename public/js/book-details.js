@@ -1,6 +1,8 @@
 /**
  * Created by laptop88 on 6/21/2017.
  */
+var userId = $("#stars-existing").data("userid");
+var foodId = $("#stars-existing").data("foodid");
 $('.thumbnail').mouseenter(function() {
     $(this).children('.zoomTool').fadeIn();
 });
@@ -10,35 +12,6 @@ $('.thumbnail').mouseleave(function() {
 });
 
 $(document).ready(function() {
-
-    // add to cart
-    $('.addToCart').on('click', function(event, value, caption) {
-        var product = $(this).data("product");
-        var quantity = $(this).data("quantity");
-        $.ajaxSetup({
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name = "csrf-token"]').attr('content')
-            }
-        });
-
-        var data = {
-            productId: product,
-            quantity: quantity
-        };
-        $.ajax({
-            url: './addToCart',
-            method: 'POST',
-            data: data,
-            success: function (response) {
-                //Update rate
-                console.log(response.money);
-                $('.cart-count').text('' + response.count + 'Item(s) -');
-                $('.money').text(response.money);
-            },
-            error: function () {
-            }
-        });
-    });
 
     // Delete rep-comment
     $(document).on('click', '.delete-comment', function () {
@@ -125,7 +98,7 @@ $(document).ready(function() {
                 $html.find('.comment-name a').html(user.name);
                 $html.find('.edit-comment').attr('data-commentid', repComment.id);
                 $html.find('.delete-comment').attr('data-commentid', repComment.id);
-                $html.find('.comment-content').html(repComment.content);
+                $html.find('.com-content').html(repComment.content);
 
                 $(self).closest('.comment-form').before($html);
                 //Reset input form
@@ -268,5 +241,68 @@ $(document).ready(function() {
         var id = $(this).data('reviewid');
         $("#comment-" + id).toggleClass('hidden');
     });
+
+    //unlike
+        $(document).on('click', '.unlike', function() {
+            var self = $(this);
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name = "csrf-token"]').attr('content')
+                }
+            });
+            var data = {
+                user_id: userId,
+                food_id: foodId
+            };
+
+            $.ajax({
+                url: './unLike',
+                method: 'POST',
+                data: data,
+                success: function (response) {
+                    console.log(response.like_count);
+                    var $box_like = $(self).closest('.quantity-js');
+                    $box_like.find('.like').find('#span-like').text(response.like_count);
+                    $box_like.find('.unlike').hide();
+                    $box_like.find('.like').hide();
+                    $box_like.find('.unlike-one').show();
+
+                },
+                error: function () {
+                }
+            });
+    });
+
+    //like
+    $(document).on('click', '.like', function() {
+        var self = $(this);
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name = "csrf-token"]').attr('content')
+            }
+        });
+        var data = {
+            user_id: userId,
+            food_id: foodId
+        };
+
+        $.ajax({
+            url: './like',
+            method: 'POST',
+            data: data,
+            success: function (response) {
+                console.log(response.like_count);
+                var $box_like = $(self).closest('.quantity-js');
+                $box_like.find('.unlike').find('#span-unlike').text(response.like_count);
+                $box_like.find('.like').hide();
+                $box_like.find('.like-two').hide();
+                $box_like.find('.like-one').show();
+
+            },
+            error: function () {
+            }
+        });
+    });
+
 
 });

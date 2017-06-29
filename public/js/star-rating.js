@@ -1,3 +1,6 @@
+var userId = $("#stars-existing").data("userid");
+var foodId = $("#stars-existing").data("foodid");
+
 // Starrr plugin (https://github.com/dobtco/starrr)
 var __slice = [].slice;
 
@@ -37,6 +40,9 @@ var __slice = [].slice;
             });
             this.$el.on('starrr:change', this.options.change);
         }
+        if (userId == 0) {
+            options.disabled = true;
+        }
 
         Starrr.prototype.createStars = function() {
             var _i, _ref, _results;
@@ -74,6 +80,7 @@ var __slice = [].slice;
             if (!rating) {
                 return this.$el.find('span').removeClass('glyphicon-star').addClass('glyphicon-star-empty');
             }
+
         };
 
         return Starrr;
@@ -105,11 +112,36 @@ $(function() {
 
 $( document ).ready(function() {
 
-    $('#stars').on('starrr:change', function(e, value){
-        $('#count').html(value);
-    });
+    // $('#stars').on('starrr:change', function(e, value){
+    //     $('#count').html(value);
+    // });
 
     $('#stars-existing').on('starrr:change', function(e, value){
-        $('#count-existing').html(value);
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name = "csrf-token"]').attr('content')
+            }
+        });
+        var data = {
+            user_id: userId,
+            food_id: foodId,
+            value: value
+        };
+        console.log(foodId);
+        $.ajax({
+            url: './vote',
+            method: 'POST',
+            data: data,
+            success: function (response) {
+                console.log(response);
+                //Update rate
+                $('.score').text('Vote Point:  ' + response.score);
+            },
+            error: function () {
+            }
+        });
+        // console.log(value);
+        // console.log(caption);
+        // $('#count-existing').html(value);
     });
 });

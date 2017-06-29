@@ -9,12 +9,15 @@
 namespace App\Http\Controllers;
 
 use App\Models\Comment;
+use App\Models\Like;
+use App\Models\Rate;
 use App\Models\RepComment;
 use App\Repositories\Contracts\CategoryRepositoryInterface;
 use App\Repositories\Contracts\FoodRepositoryInterface;
 use Illuminate\Http\Request;
 use Auth;
 use Cart;
+use Illuminate\Support\Facades\DB;
 
 class FoodController extends Controller
 {
@@ -42,26 +45,20 @@ class FoodController extends Controller
         }
         $latest = $this->foodRepository->findLatest()->get();
         $sames = $category->foods()->get();
+        $value = 0;
+        $like = null;
+        if( !Auth::guest() )
+        {
+            $rate = Rate::findFoodRate($food->id, Auth::user()->id)->first();
+            if ($rate != null)
+            {
+                $value = $rate->point;
+            }
+            $like = Like::findLike($food->id, Auth::user()->id)->first();
 
-        return view('pages.food-details')->with(compact('food', 'score', 'latest', 'category', 'sames', 'comments'));
-    }
+        }
 
-    public function addToCart(Request $request)
-    {
-        $productId = $request->productId;
-        $product = $this->foodRepository->find($productId);
-        $quantity = $request->quantity;
-        Cart::add("$product->id", "$product->name", $quantity, $product->prime);
-//        Cart::add([
-//            ['id' => $product->id, 'name' => $product->name, 'qty' => 1, 'price' => $product->price],
-//            ['id' => '4832k', 'name' => 'Product 2', 'qty' => 1, 'price' => 10.00, 'options' => ['size' => 'large']]
-//        ]);
-
-        return response()
-            ->json([
-                'count' => Cart::count(),
-                'money' => Cart::subtotal(),
-            ]);
+        return view('pages.food-details')->with(compact('food', 'score', 'latest', 'category', 'sames', 'comments', 'value', 'like'));
     }
 
     public function deleteRepComment(Request $request)
@@ -76,63 +73,63 @@ class FoodController extends Controller
         Comment::deleteById($comment_id);
     }
 
-//    public function vote(Request $request)
-//    {
-//        $user_id = $request->user_id;
-//        $book_id = $request->book_id;
-//        $value = $request->value;
-//        $rate = Rate::findBookRate($book_id, $user_id)->first();
-//        $book = Book::find($book_id);
-//        $flag = true;
-//        if ($rate != null) {
-//            DB::beginTransaction();
-//            try {
-//                $book->rate =$book->rate - $rate->point + $value;
-//                $book->save();
-//
-//                $rate->point = $value;
-//                $rate->save();
-//
-//                DB::commit();
-//            } catch (\Exception $e) {
-//                dump($e);
-//                DB::rollBack();
-//                $flag = false;
-//            }
-//        } else {
-//            DB::beginTransaction();
-//            try {
-//                $rate = new Rate();
-//                $rate->user_id = $user_id;
-//                $rate->type_id = $book_id;
-//                $rate->point = $value;
-//                $rate->type = 1;
-//                $rate->save();
-//
-//                $book->rate_count += 1;
-//                $book->rate += $value;
-//                $book->save();
-//
-//                DB::commit();
-//            } catch (\Exception $e) {
-//                DB::rollBack();
-//                $flag = false;
-//            }
-//        }
-//        if($book->rate_count >0)
-//        {
-//            $score = number_format($book->rate/$book->rate_count,2);
-//        }else
-//        {
-//            $score = 0;
-//        }
-//
-//        return response()
-//            ->json([
-//                'success' => $flag,
-//                'score' => $score
-//            ]);
-//    }
+    public function vote(Request $request)
+    {
+        $user_id = $request->user_id;
+        $food_id = $request->food_id;
+        $value = $request->value;
+        $rate = Rate::findFoodRate($food_id, $user_id)->first();
+        $food = $this->foodRepository->find($food_id);
+
+        $flag = true;
+        if ($rate != null) {
+            DB::beginTransaction();
+            try {
+                $food->rate =$food->rate - $rate->point + $value;
+                $food->save();
+
+                $rate->point = $value;
+                $rate->save();
+
+                DB::commit();
+            } catch (\Exception $e) {
+                dump($e);
+                DB::rollBack();
+                $flag = false;
+            }
+        } else {
+            DB::beginTransaction();
+            try {
+                $rate = new Rate();
+                $rate->user_id = $user_id;
+                $rate->food_id = $food_id;
+                $rate->point = $value;
+                $rate->save();
+
+                $food->rate_count += 1;
+                $food->rate += $value;
+                $food->save();
+
+                DB::commit();
+            } catch (\Exception $e) {
+                DB::rollBack();
+                $flag = false;
+            }
+        }
+        if($food->rate_count >0)
+        {
+            $score = number_format($food->rate/$food->rate_count,2);
+        }else
+        {
+            $score = 0;
+        }
+
+        return response()
+            ->json([
+                'success' => $flag,
+                'score' => $score
+            ]);
+    }
 
     public function repComment(Request $request)
     {
@@ -180,5 +177,41 @@ class FoodController extends Controller
             $repComment->content = $request->rep_comment_content;
             $repComment->save();
         }
+    }
+
+    public function unLike(Request $request)
+    {
+        $like = Like::findLike($request->food_id, $request->user_id)->first();
+        $like_id = $like->id;
+        Like::destroy($like_id);
+        $food = $this->foodRepository->find($request->food_id);
+        $like_count = count($food->likes()->get());
+        return response()
+            ->json([
+                'like_count' => $like_count,
+            ]);
+    }
+
+    public function like(Request $request)
+    {
+        $li = Like::findLike($request->food_id, $request->user_id)->first();
+        DB::beginTransaction();
+        $like = new Like();
+        if (count($li) == 0){
+            try {
+            $like->user_id = $request->user_id;
+            $like->food_id = $request->food_id;
+            $like->save();
+                DB::commit();
+            } catch (\Exception $e) {
+                DB::rollBack();
+            }
+        }
+        $food = $this->foodRepository->find($request->food_id);
+        $like_count = count($food->likes()->get());
+        return response()
+            ->json([
+                'like_count' => $like_count,
+            ]);
     }
 }

@@ -40,7 +40,7 @@ class Food extends Model
 
     public function likes()
     {
-        return $this->belongsToMany(Like::class);
+        return $this->hasMany(Like::class);
     }
 
     public function rates()

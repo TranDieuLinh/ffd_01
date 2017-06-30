@@ -115,6 +115,7 @@
                             @include ('layouts.cart-item')
                     @endforeach
                         </div>
+                        <a href="{{ route('order') }}" style="margin-left: 20px" class="btn btn-success">By Now</a>
                     @endif
                     <div class="modal-footer">
                         <div class="btn-group btn-group-justified" role="group" aria-label="group button">

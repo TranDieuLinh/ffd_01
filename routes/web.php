@@ -26,6 +26,12 @@ Route::get('item/food', [
     'as' => 'item.food',
     'uses' => 'Controller@itemFood'
 ]);
+
+Route::get('order', [
+    'as' => 'order',
+    'uses' => 'OrderController@index'
+]);
+
 Route::group(['middleware' => 'auth'], function () {
     Route::get('home', [
         'as' => 'home',
@@ -52,3 +58,4 @@ Route::post('/updateRow', 'Controller@updateRow');
 Route::post('food/vote', 'FoodController@vote');
 Route::post('food/unLike', 'FoodController@unLike');
 Route::post('food/like', 'FoodController@like');
+Route::post('order/addOrder', 'OrderController@addOrder');

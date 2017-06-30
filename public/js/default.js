@@ -61,6 +61,7 @@ $(document).ready(function() {
                 $(self).closest('.row-cart').remove(); //Find parent view
                 $('.cart-count').text('' + response.count + 'Item(s) -');
                 $('.money').text(response.money);
+                $('.total').text('TOTAL: ' + response.money + ' vnđ');
             },
             error: function () {
             }
@@ -100,6 +101,7 @@ $(document).ready(function() {
                 $(self).closest('.row-cart').find('.qua-before').show();
                 $('.cart-count').text('' + response.count + 'Item(s) -');
                 $('.money').text(response.money);
+                $('.total').text('TOTAL: ' + response.money + ' vnđ');
             },
             error: function () {
             }
